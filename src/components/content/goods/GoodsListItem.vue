@@ -1,22 +1,11 @@
 <template>
     <!-- 接口没有失效时候的代码 -->
-    <!-- <div>
-      <img :src="goodsItem.show.img" alt="">
-    <div>
-      <p>{{goodsItem.title}}</p>
-      <span class="price">{{goodsItem.price}}</span>
-      <span class="collect">{{goodsItem.cfav}}</span>
-    </div>
-    </div> -->
-
-    <!-- 接口失效过后的伪代码 -->
-    <div class="goods-list-item">
-      <!-- 这里一定要记得用v-bind 动态绑定src -->
-      <img :src="goodsItem" alt="">
+    <div class="goods-list-item" @click="itemClick">
+      <img :src="goodsItem.image" alt="" @load="imageLoad">
     <div class="goods-info">
-      <p>MIUCO波点网纱蕾丝衫拼接丝绒假两件连衣裙女装2020春装新款k</p>
-      <span class="price">¥ 338.00</span>
-      <span class="collect">1314</span>
+      <p>{{goodsItem.title}}</p>
+      <span class="price">{{'￥'+ goodsItem.newPrice}}</span>
+      <span class="collect">{{goodsItem.cfav}}</span>
     </div>
     </div>
 </template>
@@ -25,18 +14,12 @@
 export default {
   name: '',
   props: {
-    // goodsItem: {
-    //   type: Object,
-    //   default() {
-    //     return {}
-    //   }
-    // },
     goodsItem: {
-      type: String,
+      type: Object,
       default() {
-        return ''
+        return {}
       }
-    },
+    }
   },
   data() {
     return {
@@ -46,7 +29,20 @@ export default {
   },
   watch:{
   },
-  methods: {},
+  methods: {
+    imageLoad() {
+      // 用事件总线发送一个事件,然后在Home.vue里面监听这个事件
+      this.$bus.$emit('itemImageLoad')
+    },
+    itemClick() {
+      this.$router.push({
+        name: '/detail',
+        params: {
+          id: this.goodsItem
+        }
+      })
+    }
+  },
 };
 </script>
 

@@ -7,7 +7,6 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "axios": "^0.19.2",
     "better-scroll": "^1.15.2",
     "core-js": "^3.6.4",
     "url-loader": "^3.0.0",
@@ -17,6 +16,8 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",
     "@vue/cli-service": "~4.2.0",
+    "axios": "^0.19.2",
+    "mockjs": "^1.1.0",
     "vue-template-compiler": "^2.6.11"
   }
 }

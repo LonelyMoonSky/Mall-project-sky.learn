@@ -1,16 +1,6 @@
 <template>
   <div class="goods">
-    <!-- <goods-list-item v-for="item in goods" :key="item" :goods-item="item"></goods-list-item> -->
-    <goods-list-item :goods-item="goods"></goods-list-item>
-    <goods-list-item :goods-item="goods"></goods-list-item>
-    <goods-list-item :goods-item="goods"></goods-list-item>
-    <goods-list-item :goods-item="goods"></goods-list-item>
-    <goods-list-item :goods-item="goods"></goods-list-item>
-    <goods-list-item :goods-item="goods"></goods-list-item>
-    <goods-list-item :goods-item="goods"></goods-list-item>
-    <goods-list-item :goods-item="goods"></goods-list-item>
-    <goods-list-item :goods-item="goods"></goods-list-item>
-    <goods-list-item :goods-item="goods"></goods-list-item>
+    <goods-list-item v-for="(item, index) in goods" :key="index" :goods-item="item"></goods-list-item>
   </div>
 </template>
 
@@ -23,16 +13,10 @@ export default {
     GoodsListItem
   },
   props: {
-    // goods: {
-    //   type: Array,
-    //   default() {
-    //     return []
-    //   }
-    // }
     goods: {
-      type: String,
+      type: Array,
       default() {
-        return ''
+        return []
       }
     }
   },
