@@ -1,7 +1,7 @@
 <template>
     <!-- 接口没有失效时候的代码 -->
     <div class="goods-list-item" @click="itemClick">
-      <img :src="goodsItem.image" alt="" @load="imageLoad">
+      <img v-lazy="goodsItem.image" alt="" @load="imageLoad">
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{'￥'+ goodsItem.newPrice}}</span>

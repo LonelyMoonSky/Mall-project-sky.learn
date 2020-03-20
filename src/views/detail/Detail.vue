@@ -37,6 +37,9 @@ import {debounce} from "common/utils/utils"
 // 导入混入mixin.js文件
 import {itemListenerMixin, backTopMixin} from "common/mixin"
 
+// 导入vuex里面映射出来的函数 但是好像不行
+// import { mapActions } from 'vuex'
+
 export default {
   name: 'Detail',
   components: {
@@ -120,6 +123,9 @@ export default {
   watch:{
   },
   methods: {
+    // ...mapActions({
+    //   addCart: 'addCart'
+    // }),
     imageLoad() {
       this.$refs.scroll.refresh()
 
@@ -176,7 +182,13 @@ export default {
       // 传到vuex的mutations里面
       // this.$store.commit('addCart', product)
       // 传到vuex的actions里面
-      this.$store.dispatch('addCart', product)
+      this.$store.dispatch('addCart', product).then(res => {
+        this.$toast.show(res)
+      })
+      // 下面是用映射的addCart函数，但是好像不行
+      // this.addCart(product).then(res => {
+      //   console.log(res)
+      // })
     }
   },
 };
