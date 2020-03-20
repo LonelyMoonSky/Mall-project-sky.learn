@@ -14,12 +14,13 @@ const sellData = function() {
             discountBgColor: "#f13e3a",
             services: "退货补运费",
             columns: Random.natural(99, 99999),
-            shopLogo: Random.dataImage('300x400', 'sell商家的LOGO' + Random.integer(1, 99)),
+            shopLogo: Random.dataImage('80x80', 'sellLOGO'),
             shopName: Random.cname(),
             shopFans: Random.natural(100, 9999),
             shopSells: Random.natural(1000, 999999),
             shopScore: Random.natural(1, 10),
-            shopGoodsCount: Random.natural(1, 10),
+            shopGoodsCount: Random.natural(1, 1000),
+            iid: Random.natural(100000000, 999999999),
         }
         articles.push(newArticleObject)
     }

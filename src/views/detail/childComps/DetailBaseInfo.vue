@@ -83,5 +83,6 @@ export default {
 
   .info-other span {
     flex: 1;
+    text-align: center;
   }
 </style>

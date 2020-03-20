@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
+    <nav-bar class="home-nav"><div slot="center">模拟商城 - Sky</div></nav-bar>
     <tab-control :titles="['流行', '新款', '精选']" @tabClick="tabClick" ref="tabControl1" class="tab-control" v-show="isTabFixed"/>
 
     <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll" :pull-up-load="true" @pullingUp="loadMore">
@@ -24,7 +24,6 @@ import HomeFeatureView from './childComps/HomeFeatureView'
 
 import TabControl from 'components/content/tabControl/TabControl'
 import GoodsList from 'components/content/goods/GoodsList'
-import BackTop from 'components/content/backTop/BackTop'
 
 import Scroll from 'components/common/scroll/Scroll'
 
@@ -37,6 +36,9 @@ import {getHomeMultidata, getAllData} from "network/home"
 // 导入封装好的防抖函数
 import {debounce} from "common/utils/utils"
 
+// 导入混入mixin.js文件
+import {itemListenerMixin, backTopMixin} from "common/mixin"
+
 export default {
   name: 'Home',
   components: {
@@ -46,9 +48,9 @@ export default {
     HomeFeatureView,
     TabControl,
     GoodsList,
-    Scroll,
-    BackTop
+    Scroll
   },
+  mixins: [itemListenerMixin, backTopMixin],
   data() {
     return {
       banners: [],
@@ -59,10 +61,9 @@ export default {
         'sell': {page: 0, list: []},
       },
       currentType: 'pop',
-      isShowBackTop: false,
       tabOffsetTop: 0,
       isTabFixed: false,
-      saveY: 0
+      saveY: 0,
     };
   },
   activated() {
@@ -70,7 +71,11 @@ export default {
     this.$refs.scroll.scrollTo(0, this.saveY, 0)
   },
   deactivated() {
+    // 保存Y值
     this.saveY = this.$refs.scroll.getScrollY()
+
+    // 取消监听
+    this.$bus.$off('itemImgLoad', this.itemImgListener)
   },
   created() {
     // 1.请求多个数据
@@ -83,13 +88,6 @@ export default {
 
   },
   mounted() {
-    // 一、图片加载完成的事件监听
-    const refresh = debounce(this.$refs.scroll.refresh, 500)
-    // 3.监听事件总线发出的事件 CoodsListItem中的图片加载完成
-    this.$bus.$on('itemImageLoad', () => {
-      refresh()
-    })
-
   },
   computed:{
     showGoods() {
@@ -113,12 +111,11 @@ export default {
           this.currentType = 'sell'
           break
       }
+      // 让两个tabControl的currentIndex保持一致
       this.$refs.tabControl1.currentIndex = index;
       this.$refs.tabControl2.currentIndex = index;
     },
-    backClick() {
-      this.$refs.scroll.scrollTo(0, 0, 500)
-    },
+    
     contentScroll(position) {
       // 1.判断BackTop是否显示
       this.isShowBackTop = (-position.y) > 700
@@ -181,7 +178,6 @@ export default {
 
   .content {
     overflow: hidden;
-
     position: absolute;
     top: 44px;
     bottom: 49px;

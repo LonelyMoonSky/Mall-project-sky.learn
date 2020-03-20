@@ -2,13 +2,13 @@
   <div class="shop-info">
     <div class="shop-top">
       <img :src="shop.logo" alt="">
-      <span class="title">{{shop.name + '旗舰店'}}</span>
+      <div class="title">{{shop.name + '旗舰店'}}</div>
     </div>
     <div class="shop-middle">
       <div class="shop-middle-item shop-middle-left">
         <div class="info-sells">
           <div class="sells-count">
-            {{shop.sells | sellCountFilter}}
+            {{shop.sells}}
           </div>
           <div class="sells-text">总销量</div>
         </div>
@@ -61,8 +61,11 @@ export default {
   .shop-info {
     padding: 10px;
   }
+
   .shop-top {
     height: 80px;
+    display: flex;
+    align-items: center;
   }
 
   .shop-top img {
@@ -72,6 +75,7 @@ export default {
   }
 
   .shop-top .title {
+    text-align: center;
     font-size: 20px;
     margin-left: 10px;
     font-weight: 600;
@@ -79,7 +83,10 @@ export default {
 
   .shop-middle {
     display: flex;
-    margin: 20px 0 30px 20px
+    padding: 20px;
+    margin-bottom: 10px;
+    background-color: #eee;
+    border-radius: 20px;
   }
 
   .shop-middle-item {
@@ -88,6 +95,8 @@ export default {
   }
 
   .shop-middle-left {
+    margin-top: 10px;
+    padding: 10px;
     display: flex;
     border-right: 1px solid #ccc;
   }
@@ -124,8 +133,9 @@ export default {
   .shop-middle-right {
     font-size: 16px;
     line-height: 100px;
-    margin-left: 10px;
+    margin-left: 20px;
   }
+
   .shop-bottom {
     height: 40px;
     line-height: 40px;

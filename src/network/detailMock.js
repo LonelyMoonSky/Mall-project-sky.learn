@@ -20,6 +20,7 @@ export class Goods {
         this.services = itemInfo.services
         this.columns = itemInfo.columns
         this.image = itemInfo.image
+        this.iid = itemInfo.iid
     }
 }
 
